@@ -23,3 +23,14 @@
 <img src="readme_img/error404.png"/>
 
 #### Tractament d'error amb HTTPException
+Codi:
+<img src="readme_img/exception.png"/>
+
+Resultat:
+
+- Postman:
+<img src="readme_img/exception_postman.png"/>
+
+
+- Swagger:
+<img src="readme_img/exception_swagger.png"/>

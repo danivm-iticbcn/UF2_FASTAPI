@@ -1,11 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI , HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get("/", status_code=404) #Status_code para cambiar el codigo que devolvemos
+@app.get("/")
 async def root():
-    return {"bienvenida":"Bienvenido al inicio de esta API"}
+    # Excepcion para controlar la respuesta en caso de tener un 404 Not Found
+    raise HTTPException(status_code=404, detail="No se han encontrado datos")
 
 #BaseModel para el post
 class Alumno(BaseModel):
