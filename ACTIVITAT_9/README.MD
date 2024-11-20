@@ -34,3 +34,16 @@ Codi:
 - Sortida:
 
 <img src="readme_img/nasted_sortida.png"/>
+
+### 3. Read users
+
+Codi/eestructura:
+<img src="readme_img/estructura.png"/>
+
+- Registres db:
+
+<img src="readme_img/estructura_db.png"/>
+
+- Resultat postgres:
+
+<img src="readme_img/estructura_postgres.png"/>
