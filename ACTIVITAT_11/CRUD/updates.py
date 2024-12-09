@@ -5,16 +5,23 @@ def incrementarIntents(connection, id_jugador):
     conn = connection
     cursor = conn.cursor()
 
-    #Obtenim id de partida per saber quina hem de incrementar
-    queryObtenirIdPartida = f"SELECT id from partida p join jugador j on (p.jugador_id = j.id) WHERE j.id = {id} AND estat_partida = true"
-    cursor.execute(queryObtenirIdPartida)
+    try:
+        #Obtenim id de partida per saber quina hem de incrementar
+        queryObtenirIdPartida = f"SELECT p.id from partida p join jugador j on (p.jugador_id = j.id) WHERE j.id = {id_jugador} AND estat_partida = true"
+        cursor.execute(queryObtenirIdPartida)
+        idPartida = cursor.fetchone()
 
-    #Incrementem
-    idPartida = cursor.fetchone()
-    queryIncrementar = f"UPDATE partida SET intents = intents + 1 WHERE id = {idPartida}"
-    cursor.execute(queryIncrementar)
+        #Incrementem
+        queryIncrementar = f"UPDATE partida SET intents = intents + 1 WHERE id = {idPartida[0]}"
+        cursor.execute(queryIncrementar)
 
-    cursor.commit()
+        conn.commit()
+    except:
+        #En cas de haberi cap error fem rollback
+        conn.rollback()
+        cursor.close()
+        return "No s'ha pugut incrementar el numero d'intents"
+
     cursor.close()
 
     return "Intents incrementat correctament"
