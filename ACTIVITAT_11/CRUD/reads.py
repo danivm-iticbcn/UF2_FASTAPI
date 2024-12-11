@@ -47,3 +47,7 @@ def llegirEstadistiquesJugador(connection, id_jugador):
     cursor.close()
 
     return result
+
+
+### Activitat 12 ###
+

@@ -1,6 +1,8 @@
 from typing import List
 
 from fastapi import FastAPI
+from pydantic import BaseModel
+
 from insertDATA import connection
 from schemes import schemes
 from CRUD import reads, updates
@@ -33,3 +35,20 @@ async def obtenirInfoInicialPartida(idioma: str):
 async def obtenirPuntuacioJugador(id_jugador: int):
     estadistiques = reads.llegirEstadistiquesJugador(conn, id_jugador)
     return schemes.estadistiques_schema(estadistiques)
+
+
+### ACTIVITAT 12 ###
+
+class Jugador(BaseModel):
+    id: int
+    username: str
+    password: str
+    partidesJugades: int
+    partidesGuanyades: int
+    dataMillorPuntuacio: str
+    millorPuntuacio: int
+
+@app.get("/modificarJugador", response_model=List[dict])
+async def modificarJugador(jugador: Jugador):
+    estat = updates.modificarJugador(conn, jugador)
+    return [{"estat":estat}]

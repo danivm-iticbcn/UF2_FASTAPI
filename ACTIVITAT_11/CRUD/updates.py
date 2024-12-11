@@ -1,4 +1,3 @@
-from dns.e164 import query
 
 
 def incrementarIntents(connection, id_jugador):
@@ -25,3 +24,28 @@ def incrementarIntents(connection, id_jugador):
     cursor.close()
 
     return "Intents incrementat correctament"
+
+### Activitat 12 ###
+
+def modificarJugador(connection, jugador):
+    conn = connection
+    cursor = conn.cursor()
+
+    try:
+        query = f'''UPDATE jugador SET username = '{jugador.username}', password = '{jugador.password}', 
+                    partides_jugades = {jugador.partidesJugades}, partides_guanyades = {jugador.partidesGuanyades},
+                    data_millor_puntuacio = '{jugador.dataMillorPuntuacio}', millor_puntuacio = {jugador.millorPuntuacio}
+                    WHERE id = {jugador.id}'''
+
+        cursor.execute(query)
+
+        conn.commit()
+    except:
+        # En cas de haberi cap error fem rollback
+        conn.rollback()
+        cursor.close()
+        return "No s'ha pugut modificar l'usuari"
+
+    cursor.close()
+
+    return "Usuari modificat correctament"
