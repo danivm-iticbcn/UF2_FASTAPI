@@ -7,16 +7,23 @@ Queries:
 
 A la taula de jugador he afegit el camp de data per la millor puntuacio per tenir millor estructura de dades.
 
-- Jugador:
+- Jugador: (el camp data finalment es tipus timetimestamp)
 <img src="readme_img/jugador.png"/>
 
+Dades:
+<img src="readme_img/s_jugador.png"/>
 
 - Partida
 <img src="readme_img/partida.png"/>
 
+Dades:
+<img src="readme_img/s_partida.png"/>
 
 - Inici pantalla:
 <img src="readme_img/inici_pantalla.png"/>
+
+Dades:
+<img src="readme_img/s_inici.png"/>
 
 ## END POINTS
 
