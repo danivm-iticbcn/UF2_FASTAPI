@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from insertDATA import connection
 from schemes import schemes
-from CRUD import reads, updates
+from CRUD import reads, updates, creates, deletes
 
 app = FastAPI()
 conn = connection.createConection()
@@ -39,6 +39,8 @@ async def obtenirPuntuacioJugador(id_jugador: int):
 
 ### ACTIVITAT 12 ###
 
+## JUGADOR ##
+
 class Jugador(BaseModel):
     id: int
     username: str
@@ -48,7 +50,86 @@ class Jugador(BaseModel):
     dataMillorPuntuacio: str
     millorPuntuacio: int
 
-@app.get("/modificarJugador", response_model=List[dict])
+@app.put("/modificarJugador", response_model=dict)
 async def modificarJugador(jugador: Jugador):
     estat = updates.modificarJugador(conn, jugador)
-    return [{"estat":estat}]
+    return {"estat":estat}
+
+@app.post("/insertarJugador", response_model=dict)
+async def insertarJugador(jugador: Jugador):
+    estat = creates.insertarJugador(conn, jugador)
+    return {"estat":estat}
+
+@app.delete("/eliminarJugador", response_model=dict)
+async def eliminarJugador(idJugador: int):
+    estat = deletes.eliminarJugador(conn, idJugador)
+    return {"estat": estat}
+
+## PARTIDA ##
+
+class Partida(BaseModel):
+    id: int
+    punts: int
+    estatPartida: bool
+    paraula: str
+    estatParaula: str
+    intents: int
+    jugadorId: int
+
+@app.post("/insertarPartida", response_model=dict)
+async def insertarPartida(partida: Partida):
+    estat = creates.insertarPartida(conn, partida)
+    return {"estat":estat}
+
+@app.delete("/eliminarPartida", response_model=dict)
+async def eliminarPartida(idPartida: int):
+    estat = deletes.eliminarPartida(conn, idPartida)
+    return {"estat": estat}
+
+## INICI PANTALLA ##
+
+class IniciPantalla(BaseModel):
+    idioma: str
+    lletres: str
+    textIniciar: str
+    textPunts: str
+    textTotal: str
+    textGuanyades: str
+    textMillorPuntuacio: str
+
+@app.put("/modificarIniciPantalla", response_model=dict)
+async def modificarIniciPantalla(iniciPantalla: IniciPantalla):
+    estat = updates.modificarIniciPantalla(conn, iniciPantalla)
+    return {"estat":estat}
+
+@app.post("/insertarIniciPantalla", response_model=dict)
+async def insertarIniciPantalla(iniciPantalla: IniciPantalla):
+    estat = creates.insertarIniciPantalla(conn, iniciPantalla)
+    return {"estat":estat}
+
+@app.delete("/eliminarIniciPantalla", response_model=dict)
+async def eliminarPartida(idioma: str):
+    estat = deletes.eliminarIniciPantalla(conn, idioma)
+    return {"estat": estat}
+
+
+## PARAULES ##
+
+class Paraula(BaseModel):
+    paraula: str
+    tematica: str
+
+@app.put("/modificarParaula", response_model=dict)
+async def modificarParaula(paraulaAntiga: Paraula, paraulaAct: Paraula):
+    estat = updates.modificarParaula(conn, paraulaAntiga, paraulaAct)
+    return {"estat":estat}
+
+@app.post("/insertarParaula", response_model=dict)
+async def insertarParaula(paraula: Paraula):
+    estat = creates.insertarParaula(conn, paraula)
+    return {"estat":estat}
+
+@app.delete("/eliminarParaula", response_model=dict)
+async def eliminarPartida(paraula: Paraula):
+    estat = deletes.eliminarParaula(conn, paraula)
+    return {"estat": estat}

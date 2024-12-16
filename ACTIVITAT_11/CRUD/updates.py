@@ -27,6 +27,8 @@ def incrementarIntents(connection, id_jugador):
 
 ### Activitat 12 ###
 
+## JUGADOR ##
+
 def modificarJugador(connection, jugador):
     conn = connection
     cursor = conn.cursor()
@@ -44,8 +46,56 @@ def modificarJugador(connection, jugador):
         # En cas de haberi cap error fem rollback
         conn.rollback()
         cursor.close()
-        return "No s'ha pugut modificar l'usuari"
+        return "Error: No s'ha pugut modificar l'usuari"
 
     cursor.close()
 
-    return "Usuari modificat correctament"
+    return "Success: Usuari modificat correctament"
+
+## Inici Pantalla ##
+
+def modificarIniciPantalla(connection, iniciPantalla):
+    conn = connection
+    cursor = conn.cursor()
+
+    try:
+        query = f'''UPDATE inici_pantalla SET lletres = '{iniciPantalla.lletres}', text_iniciar = '{iniciPantalla.textIniciar}', 
+                    text_punts = '{iniciPantalla.textPunts}', text_total = '{iniciPantalla.textTotal}', 
+                    text_guanyades = '{iniciPantalla.textGuanyades}', text_millor_puntuacio = '{iniciPantalla.textMillorPuntuacio}'
+                    WHERE idioma = '{iniciPantalla.idioma}' '''
+
+        cursor.execute(query)
+
+        conn.commit()
+    except:
+        # En cas de haberi cap error fem rollback
+        conn.rollback()
+        cursor.close()
+        return "Error: No s'ha pugut modificar el camp d'inici"
+
+    cursor.close()
+
+    return "Success: Camp d'inici modificat correctament"
+
+## PARAULES ##
+
+def modificarParaula(connection, paraulaAntiga, paraulaAct):
+    conn = connection
+    cursor = conn.cursor()
+
+    try:
+        query = f'''UPDATE paraules_penjat SET paraula = '{paraulaAct.paraula}', tematica = '{paraulaAct.tematica}' 
+                    WHERE paraula = '{paraulaAntiga.paraula}' AND tematica = '{paraulaAntiga.tematica}' '''
+
+        cursor.execute(query)
+
+        conn.commit()
+    except:
+        # En cas de haberi cap error fem rollback
+        conn.rollback()
+        cursor.close()
+        return "Error: No s'ha pugut modificar la paraula"
+
+    cursor.close()
+
+    return "Success: Paraula modificada correctament"
