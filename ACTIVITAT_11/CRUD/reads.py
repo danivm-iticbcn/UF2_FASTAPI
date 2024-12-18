@@ -51,3 +51,40 @@ def llegirEstadistiquesJugador(connection, id_jugador):
 
 ### Activitat 12 ###
 
+## JUGADOR ##
+def llegirJugador(connection):
+    conn = connection
+    cursor = conn.cursor()
+
+    query = f"SELECT * FROM jugador"
+    cursor.execute(query)
+
+    result = cursor.fetchall()
+    cursor.close()
+
+    return result
+
+
+def llegirPartida(connection):
+    conn = connection
+    cursor = conn.cursor()
+
+    query = f"SELECT * FROM partida"
+    cursor.execute(query)
+
+    result = cursor.fetchall()
+    cursor.close()
+
+    return result
+
+def llegirParaula(connection):
+    conn = connection
+    cursor = conn.cursor()
+
+    query = f"SELECT * FROM paraules_penjat"
+    cursor.execute(query)
+
+    result = cursor.fetchall()
+    cursor.close()
+
+    return result
