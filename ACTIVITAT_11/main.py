@@ -65,6 +65,11 @@ async def eliminarJugador(idJugador: int):
     estat = deletes.eliminarJugador(conn, idJugador)
     return {"estat": estat}
 
+@app.get("/jugador", response_model=List[dict])
+async def llegirJugador():
+    jugadors = reads.llegirJugador(conn)
+    return schemes.jugadors_schema(jugadors)
+
 ## PARTIDA ##
 
 class Partida(BaseModel):
@@ -85,6 +90,11 @@ async def insertarPartida(partida: Partida):
 async def eliminarPartida(idPartida: int):
     estat = deletes.eliminarPartida(conn, idPartida)
     return {"estat": estat}
+
+@app.get("/partida", response_model=List[dict])
+async def llegirPartida():
+    partides = reads.llegirPartida(conn)
+    return schemes.partides_schema(partides)
 
 ## INICI PANTALLA ##
 
@@ -133,3 +143,8 @@ async def insertarParaula(paraula: Paraula):
 async def eliminarPartida(paraula: Paraula):
     estat = deletes.eliminarParaula(conn, paraula)
     return {"estat": estat}
+
+@app.get("/paraula", response_model=List[dict])
+async def llegirParaula():
+    paraules = reads.llegirParaula(conn)
+    return schemes.paraules_schema(paraules)

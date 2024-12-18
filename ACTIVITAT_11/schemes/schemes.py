@@ -31,3 +31,42 @@ def estadistica_schema(estadistica) -> dict:
 
 def estadistiques_schema(estadistiques) -> dict:
     return [estadistica_schema(estadistica) for estadistica in estadistiques]
+
+
+### Activitat 12 ###
+def jugador_schema(jugador) -> dict:
+    return {
+        "id": jugador[0],
+        "username": jugador[1],
+        "password": jugador[2],
+        "partidesJugades": jugador[3],
+        "partidesGuanyades": jugador[4],
+        "dataMillorPuntuacio": jugador[5],
+        "millorPuntuacio": jugador[6]
+    }
+
+def jugadors_schema(jugadors) -> dict:
+    return [jugador_schema(jugador) for jugador in jugadors]
+
+def partida_schema(partida) -> dict:
+    return {
+        "id": partida[0],
+        "punts": partida[1],
+        "estatPartida": partida[2],
+        "paraula": partida[3],
+        "estatParaula": partida[4],
+        "intents": partida[5],
+        "jugadorId": partida[6]
+    }
+
+def partides_schema(partides) -> dict:
+    return [partida_schema(partida) for partida in partides]
+
+def paraula_schema(paraula) -> dict:
+    return {
+        "paraula": paraula[0],
+        "tematica": paraula[1]
+    }
+
+def paraules_schema(paraules) -> dict:
+    return [paraula_schema(paraula) for paraula in paraules]
